@@ -6,7 +6,7 @@
 set -euo pipefail
 
 DOMAIN="${1:?Usage: bash setup.sh your-domain.com}"
-APP_DIR="/var/www/trackaudit"
+APP_DIR="/trackaudit"
 REPO_URL="${2:-}"   # optional: pass your git repo URL as second arg
 
 echo "==> [1/10] System packages"

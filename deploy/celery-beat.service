@@ -7,9 +7,9 @@ Requires=redis.service
 Type=forking
 User=trackaudit
 Group=trackaudit
-WorkingDirectory=/var/www/trackaudit/backend
-EnvironmentFile=/var/www/trackaudit/backend/.env
-ExecStart=/var/www/trackaudit/backend/venv/bin/celery \
+WorkingDirectory=/trackaudit/backend
+EnvironmentFile=/trackaudit/backend/.env
+ExecStart=/trackaudit/backend/venv/bin/celery \
     -A trackaudit beat \
     --loglevel=info \
     --scheduler django_celery_beat.schedulers:DatabaseScheduler \

@@ -7,16 +7,16 @@ Requires=redis.service
 Type=forking
 User=trackaudit
 Group=trackaudit
-WorkingDirectory=/var/www/trackaudit/backend
-EnvironmentFile=/var/www/trackaudit/backend/.env
-ExecStart=/var/www/trackaudit/backend/venv/bin/celery \
+WorkingDirectory=/trackaudit/backend
+EnvironmentFile=/trackaudit/backend/.env
+ExecStart=/trackaudit/backend/venv/bin/celery \
     -A trackaudit worker \
     --loglevel=info \
     --concurrency=2 \
     --pidfile=/var/run/celery/worker.pid \
     --logfile=/var/log/celery/worker.log \
     --detach
-ExecStop=/var/www/trackaudit/backend/venv/bin/celery \
+ExecStop=/trackaudit/backend/venv/bin/celery \
     -A trackaudit control shutdown
 PIDFile=/var/run/celery/worker.pid
 RuntimeDirectory=celery

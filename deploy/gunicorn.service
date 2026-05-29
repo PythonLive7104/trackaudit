@@ -7,9 +7,9 @@ Requires=network.target
 Type=notify
 User=trackaudit
 Group=trackaudit
-WorkingDirectory=/var/www/trackaudit/backend
-EnvironmentFile=/var/www/trackaudit/backend/.env
-ExecStart=/var/www/trackaudit/backend/venv/bin/gunicorn \
+WorkingDirectory=/trackaudit/backend
+EnvironmentFile=/trackaudit/backend/.env
+ExecStart=/trackaudit/backend/venv/bin/gunicorn \
     trackaudit.wsgi:application \
     --workers 3 \
     --bind 127.0.0.1:8000 \

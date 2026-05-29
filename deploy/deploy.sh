@@ -5,7 +5,7 @@
 # ─────────────────────────────────────────────────────────────────────────────
 set -euo pipefail
 
-APP_DIR="/var/www/trackaudit"
+APP_DIR="/trackaudit"
 VENV="$APP_DIR/backend/venv/bin"
 
 echo "==> Pull latest code"
