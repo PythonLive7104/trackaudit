@@ -2,16 +2,14 @@ FROM python:3.12-slim
 
 WORKDIR /app
 
-# System deps: WeasyPrint + psycopg2-binary
+# System deps: WeasyPrint (63+) + compiler for any native pip wheels
 RUN apt-get update && apt-get install -y --no-install-recommends \
     gcc \
     libpango-1.0-0 \
     libpangocairo-1.0-0 \
     libcairo2 \
-    libgdk-pixbuf2.0-0 \
     libffi-dev \
-    shared-mime-info \
-    fonts-liberation \
+    fonts-dejavu-core \
     && rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt .
