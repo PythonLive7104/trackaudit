@@ -396,7 +396,7 @@ export function LandingPage() {
 
       {/* ── Navigation ─────────────────────────────────────────────── */}
       <nav className="sticky top-0 z-50 bg-card/80 backdrop-blur-xl border-b border-border">
-        <div className="max-w-7xl mx-auto px-6 h-[72px] flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 sm:h-[72px] flex items-center justify-between">
           <div className="flex items-center gap-2.5">
             <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg shadow-primary/30">
               <ClipboardCheck className="w-5 h-5 text-white" />
@@ -404,7 +404,7 @@ export function LandingPage() {
             <span className="text-xl font-bold text-foreground tracking-tight">TrackAudit</span>
           </div>
 
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden lg:flex items-center gap-8">
             <a href="#features" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Features</a>
             <a href="#how-it-works" className="text-sm text-muted-foreground hover:text-foreground transition-colors">How It Works</a>
             <a href="#pricing" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Pricing</a>
@@ -430,31 +430,31 @@ export function LandingPage() {
         <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-primary/8 rounded-full blur-3xl -translate-y-1/2 pointer-events-none" />
         <div className="absolute top-0 right-1/4 w-[400px] h-[400px] bg-accent/8 rounded-full blur-3xl -translate-y-1/3 pointer-events-none" />
 
-        <div className="max-w-7xl mx-auto px-6 relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 relative">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-center max-w-4xl mx-auto mb-14"
+            className="text-center max-w-4xl mx-auto mb-10 sm:mb-14"
           >
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.1, duration: 0.4 }}
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium mb-8"
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium mb-6 sm:mb-8"
             >
               <Zap className="w-3.5 h-3.5" />
               Trusted by 500+ PPC agencies worldwide
             </motion.div>
 
-            <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-6 leading-[1.1] tracking-tight">
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold text-foreground mb-4 sm:mb-6 leading-[1.1] tracking-tight">
               Stop losing money to{' '}
               <span className="bg-gradient-to-r from-primary via-accent to-cyan bg-clip-text text-transparent">
                 broken conversion tracking
               </span>
             </h1>
 
-            <p className="text-xl text-muted-foreground mb-10 leading-relaxed max-w-2xl mx-auto">
+            <p className="text-base sm:text-xl text-muted-foreground mb-7 sm:mb-10 leading-relaxed max-w-2xl mx-auto">
               TrackAudit monitors your Google Ads conversion tracking 24/7. Catch broken tags,
               consent issues, and data gaps before they waste your clients' ad spend.
             </p>
@@ -497,35 +497,35 @@ export function LandingPage() {
                 </div>
               </div>
 
-              <div className="bg-background p-5">
+              <div className="bg-background p-3 sm:p-5">
                 {/* Metric cards row */}
-                <div className="grid grid-cols-4 gap-3 mb-4">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 mb-3 sm:mb-4">
                   {mockMetrics.map((m, i) => (
                     <motion.div
                       key={i}
                       initial={{ opacity: 0, y: 12 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.55 + i * 0.08 }}
-                      className="bg-card rounded-xl p-4 border border-border"
+                      className="bg-card rounded-xl p-3 sm:p-4 border border-border"
                     >
-                      <div className={`w-8 h-8 rounded-lg bg-gradient-to-br ${m.color} flex items-center justify-center mb-3`}>
-                        <m.icon className="w-4 h-4 text-white" />
+                      <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-gradient-to-br ${m.color} flex items-center justify-center mb-2 sm:mb-3`}>
+                        <m.icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
                       </div>
-                      <p className="text-[11px] text-muted-foreground mb-0.5">{m.label}</p>
-                      <p className="text-2xl font-bold text-foreground leading-none mb-1">{m.value}</p>
-                      <p className="text-[10px] text-success">{m.change}</p>
+                      <p className="text-[10px] sm:text-[11px] text-muted-foreground mb-0.5 truncate">{m.label}</p>
+                      <p className="text-lg sm:text-2xl font-bold text-foreground leading-none mb-1">{m.value}</p>
+                      <p className="text-[9px] sm:text-[10px] text-success truncate">{m.change}</p>
                     </motion.div>
                   ))}
                 </div>
 
                 {/* Chart + alerts row */}
-                <div className="grid grid-cols-3 gap-3">
-                  <div className="col-span-2 bg-card rounded-xl p-4 border border-border">
-                    <div className="flex items-center justify-between mb-4">
-                      <p className="text-sm font-semibold text-foreground">Health Score Trend</p>
-                      <span className="text-[11px] text-muted-foreground bg-muted px-2 py-1 rounded-md">Last 12 months</span>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3">
+                  <div className="sm:col-span-2 bg-card rounded-xl p-3 sm:p-4 border border-border">
+                    <div className="flex items-center justify-between mb-3 sm:mb-4">
+                      <p className="text-xs sm:text-sm font-semibold text-foreground">Health Score Trend</p>
+                      <span className="text-[10px] sm:text-[11px] text-muted-foreground bg-muted px-2 py-1 rounded-md">Last 12 months</span>
                     </div>
-                    <div className="flex items-end gap-1.5 h-20">
+                    <div className="flex items-end gap-1 sm:gap-1.5 h-16 sm:h-20">
                       {chartBars.map((h, i) => (
                         <motion.div
                           key={i}
@@ -539,24 +539,24 @@ export function LandingPage() {
                     </div>
                     <div className="flex mt-2">
                       {months.map((m, i) => (
-                        <span key={i} className="flex-1 text-center text-[9px] text-muted-foreground">{m}</span>
+                        <span key={i} className="flex-1 text-center text-[8px] sm:text-[9px] text-muted-foreground">{m}</span>
                       ))}
                     </div>
                   </div>
 
-                  <div className="bg-card rounded-xl p-4 border border-border">
-                    <p className="text-sm font-semibold text-foreground mb-3">Active Alerts</p>
-                    <div className="space-y-2.5">
+                  <div className="bg-card rounded-xl p-3 sm:p-4 border border-border">
+                    <p className="text-xs sm:text-sm font-semibold text-foreground mb-2 sm:mb-3">Active Alerts</p>
+                    <div className="space-y-2">
                       {[
                         { msg: 'Broken conversion tag', sev: 'Critical', cls: 'text-destructive bg-destructive/10' },
                         { msg: 'Consent mode gap', sev: 'Warning', cls: 'text-warning bg-warning/10' },
                         { msg: 'Enhanced conv. off', sev: 'Info', cls: 'text-primary bg-primary/10' },
                       ].map((alert, i) => (
                         <div key={i} className="flex items-center gap-2">
-                          <span className={`text-[9px] font-semibold px-1.5 py-0.5 rounded whitespace-nowrap ${alert.cls}`}>
+                          <span className={`text-[9px] font-semibold px-1.5 py-0.5 rounded whitespace-nowrap flex-shrink-0 ${alert.cls}`}>
                             {alert.sev}
                           </span>
-                          <span className="text-[11px] text-muted-foreground truncate">{alert.msg}</span>
+                          <span className="text-[10px] sm:text-[11px] text-muted-foreground truncate">{alert.msg}</span>
                         </div>
                       ))}
                     </div>
@@ -569,8 +569,8 @@ export function LandingPage() {
       </section>
 
       {/* ── Stats Bar ──────────────────────────────────────────────── */}
-      <section className="mt-16 py-14 bg-muted/40 border-y border-border">
-        <div className="max-w-7xl mx-auto px-6">
+      <section className="mt-10 sm:mt-16 py-10 sm:py-14 bg-muted/40 border-y border-border">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, i) => (
               <motion.div
@@ -592,8 +592,8 @@ export function LandingPage() {
       </section>
 
       {/* ── Features ───────────────────────────────────────────────── */}
-      <section id="features" className="py-24">
-        <div className="max-w-7xl mx-auto px-6">
+      <section id="features" className="py-16 sm:py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -601,8 +601,8 @@ export function LandingPage() {
             className="text-center mb-16"
           >
             <p className="text-sm font-semibold text-primary mb-3 uppercase tracking-widest">Features</p>
-            <h2 className="text-4xl font-bold text-foreground mb-4">Everything you need to protect ad spend</h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">Everything you need to protect ad spend</h2>
+            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
               Comprehensive monitoring, alerting, and reporting — built for agencies who can't afford tracking errors.
             </p>
           </motion.div>
@@ -630,7 +630,7 @@ export function LandingPage() {
 
       {/* ── How It Works ───────────────────────────────────────────── */}
       <section id="how-it-works" className="py-24 bg-muted/30">
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -638,7 +638,7 @@ export function LandingPage() {
             className="text-center mb-16"
           >
             <p className="text-sm font-semibold text-primary mb-3 uppercase tracking-widest">How It Works</p>
-            <h2 className="text-4xl font-bold text-foreground mb-4">Set up in under 5 minutes</h2>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">Set up in under 5 minutes</h2>
             <p className="text-lg text-muted-foreground">No code required. Connect, audit, protect.</p>
           </motion.div>
 
@@ -671,8 +671,8 @@ export function LandingPage() {
       </section>
 
       {/* ── Testimonials ───────────────────────────────────────────── */}
-      <section className="py-24">
-        <div className="max-w-7xl mx-auto px-6">
+      <section className="py-16 sm:py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -680,7 +680,7 @@ export function LandingPage() {
             className="text-center mb-16"
           >
             <p className="text-sm font-semibold text-primary mb-3 uppercase tracking-widest">Testimonials</p>
-            <h2 className="text-4xl font-bold text-foreground mb-4">Loved by agencies worldwide</h2>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">Loved by agencies worldwide</h2>
             <p className="text-lg text-muted-foreground">Real results from real agencies protecting real budgets</p>
           </motion.div>
 
@@ -717,7 +717,7 @@ export function LandingPage() {
 
       {/* ── Pricing ────────────────────────────────────────────────── */}
       <section id="pricing" className="py-24 bg-muted/30">
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -725,7 +725,7 @@ export function LandingPage() {
             className="text-center mb-12"
           >
             <p className="text-sm font-semibold text-primary mb-3 uppercase tracking-widest">Pricing</p>
-            <h2 className="text-4xl font-bold text-foreground mb-4">Simple, transparent pricing</h2>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">Simple, transparent pricing</h2>
             <p className="text-lg text-muted-foreground mb-8">Choose the plan that fits your agency</p>
 
             <div className="inline-flex items-center bg-card border border-border rounded-xl p-1 gap-1">
@@ -764,9 +764,9 @@ export function LandingPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1 }}
-                  className={`rounded-2xl p-8 relative ${
+                  className={`rounded-2xl p-6 sm:p-8 relative ${
                     plan.highlighted
-                      ? 'bg-gradient-to-br from-primary/10 to-accent/10 border-2 border-primary shadow-2xl shadow-primary/20 scale-105'
+                      ? 'bg-gradient-to-br from-primary/10 to-accent/10 border-2 border-primary shadow-2xl shadow-primary/20 sm:scale-105'
                       : 'bg-card border border-border'
                   }`}
                 >
@@ -780,7 +780,7 @@ export function LandingPage() {
                   <h3 className="text-xl font-bold text-foreground mb-1">{plan.name}</h3>
                   <p className="text-sm text-muted-foreground mb-5">{plan.description}</p>
                   <div className="flex items-baseline gap-1 mb-1">
-                    <span className="text-5xl font-bold text-foreground">${price}</span>
+                    <span className="text-4xl sm:text-5xl font-bold text-foreground">${price}</span>
                     <span className="text-muted-foreground text-sm">/mo</span>
                   </div>
                   {billingAnnual
@@ -813,20 +813,20 @@ export function LandingPage() {
       </section>
 
       {/* ── CTA Banner ─────────────────────────────────────────────── */}
-      <section className="py-24">
-        <div className="max-w-7xl mx-auto px-6">
+      <section className="py-16 sm:py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-accent to-cyan p-14 text-center text-white"
+            className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-accent to-cyan px-6 py-12 sm:p-14 text-center text-white"
           >
             <div className="absolute top-0 right-0 w-80 h-80 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none" />
             <div className="absolute bottom-0 left-0 w-80 h-80 bg-white/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/3 pointer-events-none" />
             <div className="relative">
               <p className="text-sm font-semibold uppercase tracking-widest opacity-75 mb-4">Get Started Today</p>
-              <h2 className="text-4xl font-bold mb-4">Ready to protect your clients' ad spend?</h2>
-              <p className="text-xl opacity-80 mb-10 max-w-xl mx-auto">
+              <h2 className="text-2xl sm:text-4xl font-bold mb-4">Ready to protect your clients' ad spend?</h2>
+              <p className="text-base sm:text-xl opacity-80 mb-8 sm:mb-10 max-w-xl mx-auto">
                 Join 500+ agencies who trust TrackAudit to catch tracking errors before they waste money.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -857,7 +857,7 @@ export function LandingPage() {
             className="text-center mb-16"
           >
             <p className="text-sm font-semibold text-primary mb-3 uppercase tracking-widest">FAQ</p>
-            <h2 className="text-4xl font-bold text-foreground mb-4">Frequently asked questions</h2>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">Frequently asked questions</h2>
             <p className="text-lg text-muted-foreground">Everything you need to know about TrackAudit</p>
           </motion.div>
 
@@ -900,7 +900,7 @@ export function LandingPage() {
 
       {/* ── Footer ─────────────────────────────────────────────────── */}
       <footer className="bg-card border-t border-border py-16">
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-10">
             <div className="col-span-2">
               <div className="flex items-center gap-2.5 mb-4">
