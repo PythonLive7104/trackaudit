@@ -1,0 +1,76 @@
+services:
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    volumes:
+      - redis_data:/data
+
+  backend:
+    build: ./backend
+    restart: unless-stopped
+    env_file: ./backend/.env
+    environment:
+      DJANGO_SETTINGS_MODULE: trackaudit.settings.production
+      REDIS_URL: redis://redis:6379/0
+      FRONTEND_URL: https://trackaudit.info
+      ALLOWED_HOSTS: trackaudit.info,www.trackaudit.info,localhost
+    depends_on:
+      - redis
+    expose:
+      - "8000"
+    volumes:
+      - media:/app/media
+      - static:/app/staticfiles
+    command: >
+      sh -c "python manage.py migrate --no-input &&
+             python manage.py collectstatic --no-input --clear &&
+             gunicorn trackaudit.wsgi:application
+               --workers 3
+               --bind 0.0.0.0:8000
+               --timeout 120
+               --access-logfile -
+               --error-logfile -"
+
+  celery-worker:
+    build: ./backend
+    restart: unless-stopped
+    env_file: ./backend/.env
+    environment:
+      DJANGO_SETTINGS_MODULE: trackaudit.settings.production
+      REDIS_URL: redis://redis:6379/0
+    depends_on:
+      - redis
+    volumes:
+      - media:/app/media
+    command: celery -A trackaudit worker --loglevel=info --concurrency=2
+
+  celery-beat:
+    build: ./backend
+    restart: unless-stopped
+    env_file: ./backend/.env
+    environment:
+      DJANGO_SETTINGS_MODULE: trackaudit.settings.production
+      REDIS_URL: redis://redis:6379/0
+    depends_on:
+      - redis
+    command: celery -A trackaudit beat --loglevel=info
+               --scheduler django_celery_beat.schedulers:DatabaseScheduler
+
+  nginx:
+    build: ./frontend
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - backend
+    volumes:
+      - static:/static:ro
+      - media:/media:ro
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+
+volumes:
+  redis_data:
+  media:
+  static:
