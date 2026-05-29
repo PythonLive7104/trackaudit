@@ -1,0 +1,28 @@
+[Unit]
+Description=TrackAudit — Gunicorn WSGI server
+After=network.target
+Requires=network.target
+
+[Service]
+Type=notify
+User=trackaudit
+Group=trackaudit
+WorkingDirectory=/var/www/trackaudit/backend
+EnvironmentFile=/var/www/trackaudit/backend/.env
+ExecStart=/var/www/trackaudit/backend/venv/bin/gunicorn \
+    trackaudit.wsgi:application \
+    --workers 3 \
+    --bind 127.0.0.1:8000 \
+    --timeout 120 \
+    --access-logfile - \
+    --error-logfile - \
+    --log-level info
+ExecReload=/bin/kill -s HUP $MAINPID
+KillMode=mixed
+TimeoutStopSec=5
+PrivateTmp=true
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

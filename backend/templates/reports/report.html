@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  @page { size: A4; margin: 20mm 18mm; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #1E293B; font-size: 11pt; line-height: 1.5; }
+
+  /* ── Cover page ─────────────────────────────────────────────────── */
+  .cover { page-break-after: always; display: flex; flex-direction: column; min-height: 250mm; }
+  .cover-header { background: {{ primary_color }}; color: #fff; padding: 32px 36px; border-radius: 0 0 12px 12px; }
+  .cover-header .agency-name { font-size: 13pt; font-weight: 600; opacity: .85; margin-bottom: 4px; }
+  .cover-header h1 { font-size: 26pt; font-weight: 700; line-height: 1.2; }
+  .cover-meta { padding: 32px 36px; flex: 1; }
+  .cover-meta .label { font-size: 9pt; color: #64748B; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 4px; }
+  .cover-meta .value { font-size: 13pt; font-weight: 600; margin-bottom: 20px; }
+  .score-ring { display: inline-flex; flex-direction: column; align-items: center; justify-content: center;
+                width: 110px; height: 110px; border-radius: 50%; border: 8px solid {{ score_color }};
+                margin: 16px 0; }
+  .score-ring .score-num { font-size: 28pt; font-weight: 700; color: {{ score_color }}; line-height: 1; }
+  .score-ring .score-label { font-size: 8pt; color: #64748B; }
+  .cover-footer { padding: 20px 36px; border-top: 1px solid #E2E8F0; font-size: 9pt; color: #94A3B8;
+                   display: flex; justify-content: space-between; }
+
+  /* ── Section headings ───────────────────────────────────────────── */
+  .section { margin-bottom: 28px; }
+  .section-title { font-size: 14pt; font-weight: 700; color: {{ primary_color }}; border-bottom: 2px solid {{ primary_color }};
+                   padding-bottom: 6px; margin-bottom: 16px; }
+  .page-break { page-break-before: always; }
+
+  /* ── Executive summary ──────────────────────────────────────────── */
+  .summary-box { background: #F8FAFC; border-left: 4px solid {{ primary_color }}; padding: 16px 20px; border-radius: 4px; }
+  .summary-box ul { padding-left: 18px; }
+  .summary-box li { margin-bottom: 8px; }
+
+  /* ── Score overview ─────────────────────────────────────────────── */
+  .score-grid { display: flex; gap: 16px; }
+  .score-card { flex: 1; padding: 14px 16px; border-radius: 8px; text-align: center; }
+  .score-card .num { font-size: 22pt; font-weight: 700; }
+  .score-card .lbl { font-size: 9pt; color: #64748B; margin-top: 4px; }
+  .card-pass { background: #F0FDF4; } .card-pass .num { color: #16A34A; }
+  .card-warn { background: #FFFBEB; } .card-warn .num { color: #D97706; }
+  .card-crit { background: #FEF2F2; } .card-crit .num { color: #DC2626; }
+  .card-err  { background: #F8FAFC; } .card-err  .num { color: #64748B; }
+
+  /* ── Checks ────────────────────────────────────────────────────── */
+  .check-card { border: 1px solid #E2E8F0; border-radius: 8px; margin-bottom: 12px; overflow: hidden; }
+  .check-header { display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px; }
+  .status-badge { font-size: 8pt; font-weight: 700; padding: 2px 8px; border-radius: 4px;
+                  text-transform: uppercase; letter-spacing: .05em; white-space: nowrap; }
+  .badge-critical { background: #FEE2E2; color: #DC2626; }
+  .badge-warning  { background: #FEF3C7; color: #D97706; }
+  .badge-pass     { background: #DCFCE7; color: #16A34A; }
+  .badge-error    { background: #F1F5F9; color: #475569; }
+  .check-name { font-weight: 600; font-size: 10.5pt; }
+  .check-category { font-size: 8.5pt; color: #64748B; }
+  .check-finding { font-size: 9.5pt; color: #475569; margin-top: 4px; }
+  .check-body { padding: 0 16px 14px; border-top: 1px solid #F1F5F9; }
+  .check-body p { font-size: 9.5pt; margin-top: 10px; }
+  .fix-box { background: #F0F9FF; border-left: 3px solid #0EA5E9; padding: 10px 14px; border-radius: 4px;
+             font-size: 9.5pt; margin-top: 10px; white-space: pre-wrap; }
+
+  /* ── History table ──────────────────────────────────────────────── */
+  table.history { width: 100%; border-collapse: collapse; font-size: 9.5pt; }
+  table.history th { text-align: left; padding: 6px 10px; background: #F8FAFC; border-bottom: 2px solid #E2E8F0;
+                      font-size: 9pt; color: #64748B; text-transform: uppercase; letter-spacing: .05em; }
+  table.history td { padding: 8px 10px; border-bottom: 1px solid #F1F5F9; }
+  table.history tr:last-child td { border-bottom: none; }
+  .score-pill { display: inline-block; padding: 2px 10px; border-radius: 12px; font-weight: 700; font-size: 9pt; }
+  .pill-green  { background: #DCFCE7; color: #16A34A; }
+  .pill-amber  { background: #FEF3C7; color: #D97706; }
+  .pill-red    { background: #FEE2E2; color: #DC2626; }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════ COVER PAGE ════════════════════ -->
+<div class="cover">
+  <div class="cover-header">
+    {% if logo_url %}<img src="{{ logo_url }}" alt="{{ agency_name }}" style="height:36px;margin-bottom:14px"><br>{% endif %}
+    <div class="agency-name">{{ agency_name }}</div>
+    <h1>Google Ads Conversion Tracking Audit</h1>
+  </div>
+
+  <div class="cover-meta">
+    <div class="label">Account</div>
+    <div class="value">{{ account_name }}</div>
+    <div class="label">Report Date</div>
+    <div class="value">{{ report_date }}</div>
+    {% if audit_date %}
+    <div class="label">Audit Run</div>
+    <div class="value">{{ audit_date }}</div>
+    {% endif %}
+
+    <div style="margin-top:20px">
+      <div class="label">Overall Health Score</div>
+      <div class="score-ring">
+        <span class="score-num">{{ health_score }}</span>
+        <span class="score-label">/ 100</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="cover-footer">
+    <span>Confidential — prepared for {{ account_name }}</span>
+    <span>{{ agency_name }}</span>
+  </div>
+</div>
+
+<!-- ════════════════════ EXECUTIVE SUMMARY ════════════════════ -->
+<div class="section">
+  <div class="section-title">Executive Summary</div>
+  <div class="summary-box">
+    <ul>
+      {% for finding in top_findings %}
+      <li>{{ finding }}</li>
+      {% empty %}
+      <li>No critical findings detected. Conversion tracking appears healthy.</li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+
+<!-- ════════════════════ HEALTH SCORE OVERVIEW ════════════════════ -->
+<div class="section">
+  <div class="section-title">Health Score Overview</div>
+  <div class="score-grid">
+    <div class="score-card card-pass">
+      <div class="num">{{ pass_count }}</div>
+      <div class="lbl">Passed</div>
+    </div>
+    <div class="score-card card-warn">
+      <div class="num">{{ warning_count }}</div>
+      <div class="lbl">Warnings</div>
+    </div>
+    <div class="score-card card-crit">
+      <div class="num">{{ critical_count }}</div>
+      <div class="lbl">Critical</div>
+    </div>
+    <div class="score-card card-err">
+      <div class="num">{{ error_count }}</div>
+      <div class="lbl">Errors</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════ CRITICAL FINDINGS ════════════════════ -->
+{% if critical_checks %}
+<div class="section page-break">
+  <div class="section-title">Critical Findings</div>
+  {% for check in critical_checks %}
+  <div class="check-card">
+    <div class="check-header">
+      <div>
+        <span class="status-badge badge-critical">Critical</span>
+      </div>
+      <div style="flex:1">
+        <div class="check-name">{{ check.check_name }}</div>
+        <div class="check-category">{{ check.category }}</div>
+        <div class="check-finding">{{ check.finding_summary }}</div>
+      </div>
+    </div>
+    {% if check.explanation or check.fix_instructions %}
+    <div class="check-body">
+      {% if check.explanation %}<p><strong>Why it matters:</strong> {{ check.explanation }}</p>{% endif %}
+      {% if check.fix_instructions %}
+      <div class="fix-box"><strong>How to fix:</strong><br>{{ check.fix_instructions }}</div>
+      {% endif %}
+    </div>
+    {% endif %}
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+
+<!-- ════════════════════ WARNINGS ════════════════════ -->
+{% if warning_checks %}
+<div class="section">
+  <div class="section-title">Warnings</div>
+  {% for check in warning_checks %}
+  <div class="check-card">
+    <div class="check-header">
+      <div>
+        <span class="status-badge badge-warning">Warning</span>
+      </div>
+      <div style="flex:1">
+        <div class="check-name">{{ check.check_name }}</div>
+        <div class="check-category">{{ check.category }}</div>
+        <div class="check-finding">{{ check.finding_summary }}</div>
+      </div>
+    </div>
+    {% if check.explanation or check.fix_instructions %}
+    <div class="check-body">
+      {% if check.explanation %}<p><strong>Why it matters:</strong> {{ check.explanation }}</p>{% endif %}
+      {% if check.fix_instructions %}
+      <div class="fix-box"><strong>How to fix:</strong><br>{{ check.fix_instructions }}</div>
+      {% endif %}
+    </div>
+    {% endif %}
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+
+<!-- ════════════════════ PASSING CHECKS ════════════════════ -->
+{% if pass_checks %}
+<div class="section">
+  <div class="section-title">Passing Checks</div>
+  {% for check in pass_checks %}
+  <div class="check-card">
+    <div class="check-header">
+      <div><span class="status-badge badge-pass">Pass</span></div>
+      <div style="flex:1">
+        <div class="check-name">{{ check.check_name }}</div>
+        <div class="check-category">{{ check.category }}</div>
+        <div class="check-finding">{{ check.finding_summary }}</div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+
+<!-- ════════════════════ HISTORICAL TREND ════════════════════ -->
+{% if score_history %}
+<div class="section page-break">
+  <div class="section-title">Health Score History</div>
+  <table class="history">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Health Score</th>
+        <th>Trigger</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for entry in score_history %}
+      <tr>
+        <td>{{ entry.date }}</td>
+        <td>
+          <span class="score-pill {% if entry.score >= 80 %}pill-green{% elif entry.score >= 50 %}pill-amber{% else %}pill-red{% endif %}">
+            {{ entry.score }}
+          </span>
+        </td>
+        <td>{{ entry.trigger }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endif %}
+
+<!-- ════════════════════ FOOTER ════════════════════ -->
+<div style="margin-top:40px;padding-top:16px;border-top:1px solid #E2E8F0;
+            font-size:8.5pt;color:#94A3B8;display:flex;justify-content:space-between">
+  <span>Generated by TrackAudit on {{ report_date }} for {{ agency_name }}</span>
+  <span>{{ account_name }} — Confidential</span>
+</div>
+
+</body>
+</html>

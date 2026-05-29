@@ -1,0 +1,70 @@
+# TrackAudit
+
+> Google Ads conversion tracking audit and monitoring platform for PPC agencies.
+
+TrackAudit is a SaaS tool that helps digital marketing agencies and PPC professionals monitor, audit, and fix Google Ads conversion tracking issues before they cause wasted ad spend. It runs 50+ automated checks daily across all connected Google Ads accounts and surfaces issues like broken tags, missing consent mode configuration, enhanced conversion misconfiguration, and data quality problems.
+
+## What TrackAudit does
+
+- Audits Google Ads conversion tracking setups against Google's best practices
+- Monitors consent mode V2 compliance across all accounts in real time
+- Detects broken, missing, or duplicated conversion tracking tags
+- Checks enhanced conversions configuration and readiness
+- Monitors GA4 integration and cross-platform data consistency
+- Identifies bid strategy campaigns with insufficient conversion data
+- Generates white-label PDF audit reports with agency branding
+- Sends real-time alerts via Slack and email when tracking breaks
+- Provides a multi-account dashboard for agencies managing many clients
+
+## Who uses TrackAudit
+
+PPC agencies, digital marketing agencies, freelance paid media specialists, and in-house performance marketing teams managing Google Ads accounts.
+
+## Key capabilities
+
+- 50+ automated tracking checks per audit
+- Daily and real-time monitoring modes
+- Multi-account MCC-aware dashboard
+- White-label client reports with custom logo and branding
+- Slack and email alert delivery
+- Health scores per account with 90-day history
+- API access for custom integrations
+- Team collaboration with role-based access
+
+## Pricing
+
+- **Starter** — $49/month: up to 3 Google Ads accounts, daily audits, email alerts, basic reports
+- **Agency** — $149/month: up to 15 accounts, real-time monitoring, Slack alerts, white-label reports, API access
+- **Agency Pro** — $299/month: unlimited accounts, priority support, custom branding, dedicated account manager
+
+All plans include a 14-day free trial. No credit card required.
+
+## Common questions
+
+**Q: What tracking issues does TrackAudit detect?**
+A: Broken or missing conversion tags, duplicate conversion actions, incorrect conversion categories, missing auto-tagging, consent mode V2 non-compliance, missing enhanced conversions setup, GA4 integration gaps, smart bidding campaigns with insufficient conversion data, and conversion value tracking misconfiguration.
+
+**Q: Does TrackAudit support multiple Google Ads accounts?**
+A: Yes. TrackAudit is built for agencies managing multiple client accounts. It supports Google Ads MCC (manager account) hierarchies and provides a unified dashboard across all accounts.
+
+**Q: How does the white-label reporting work?**
+A: Agencies upload their logo, set brand colours, and add their agency name. All generated PDF reports carry the agency's branding. Clients see the agency brand, not TrackAudit.
+
+**Q: What platforms does TrackAudit support?**
+A: Currently Google Ads and GA4. Support for Meta Ads, LinkedIn Ads, and other platforms is on the roadmap.
+
+**Q: Is there a free trial?**
+A: Yes — 14 days free with full Agency plan features. No credit card required.
+
+## Technical details
+
+- Connects to Google Ads via OAuth 2.0
+- Uses the Google Ads API (GAQL) for account data
+- Runs on a secure cloud infrastructure with 99.9% uptime SLA
+- All data is encrypted in transit and at rest
+
+## Contact and links
+
+- Website: https://trackaudit.io
+- Start free trial: https://trackaudit.io/signup
+- Login: https://trackaudit.io/login

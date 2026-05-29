@@ -1,0 +1,26 @@
+[Unit]
+Description=TrackAudit — Celery Beat Scheduler
+After=network.target redis.service
+Requires=redis.service
+
+[Service]
+Type=forking
+User=trackaudit
+Group=trackaudit
+WorkingDirectory=/var/www/trackaudit/backend
+EnvironmentFile=/var/www/trackaudit/backend/.env
+ExecStart=/var/www/trackaudit/backend/venv/bin/celery \
+    -A trackaudit beat \
+    --loglevel=info \
+    --scheduler django_celery_beat.schedulers:DatabaseScheduler \
+    --pidfile=/var/run/celery/beat.pid \
+    --logfile=/var/log/celery/beat.log \
+    --detach
+PIDFile=/var/run/celery/beat.pid
+RuntimeDirectory=celery
+RuntimeDirectoryMode=0755
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

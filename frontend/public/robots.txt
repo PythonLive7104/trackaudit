@@ -1,0 +1,28 @@
+# TrackAudit — https://trackaudit.io
+# Updated: 2026-05-28
+
+User-agent: *
+Allow: /$
+Allow: /login
+Allow: /signup
+Allow: /forgot-password
+Allow: /reports/share/
+
+# Block all authenticated app pages
+Disallow: /dashboard
+Disallow: /audits
+Disallow: /accounts/
+Disallow: /audit/
+Disallow: /reports
+Disallow: /alerts
+Disallow: /monitoring
+Disallow: /analytics
+Disallow: /white-label
+Disallow: /integrations
+Disallow: /billing
+Disallow: /settings/
+Disallow: /docs
+Disallow: /onboarding
+Disallow: /api/
+
+Sitemap: https://trackaudit.io/sitemap.xml
