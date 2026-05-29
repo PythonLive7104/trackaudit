@@ -6,6 +6,20 @@ import { useAuth } from '../../contexts/AuthContext';
 import { SEO } from '../../components/SEO';
 import { buildTitle } from '../../lib/seo';
 
+function redirectToGoogle() {
+  const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID as string;
+  const redirectUri = `${window.location.origin}/auth/google/callback`;
+  const params = new URLSearchParams({
+    client_id: clientId,
+    redirect_uri: redirectUri,
+    response_type: 'code',
+    scope: 'openid email profile',
+    access_type: 'offline',
+    prompt: 'select_account',
+  });
+  window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?${params}`;
+}
+
 export function LoginPage() {
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -113,6 +127,7 @@ export function LoginPage() {
             {/* Google OAuth */}
             <button
               type="button"
+              onClick={redirectToGoogle}
               className="w-full py-3 px-4 border-2 border-border rounded-lg font-medium text-foreground hover:bg-muted transition-all duration-300 flex items-center justify-center gap-3"
             >
               <svg className="w-5 h-5" viewBox="0 0 24 24">

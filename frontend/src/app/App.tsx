@@ -26,6 +26,7 @@ import { TeamPage }            from './pages/TeamPage';
 import { NotificationPrefsPage } from './pages/NotificationPrefsPage';
 import { ApiDocsPage }         from './pages/ApiDocsPage';
 import { GoogleAdsCallbackPage } from './pages/GoogleAdsCallbackPage';
+import { GoogleLoginCallbackPage } from './pages/GoogleLoginCallbackPage';
 import { NotFoundPage }        from './pages/NotFoundPage';
 
 function ProtectedRoute({ children }: { children: ReactNode }) {
@@ -60,6 +61,7 @@ export default function App() {
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           <Route path="/reports/share/:token" element={<SharedReportPage />} />
           <Route path="/integrations/google-ads/callback" element={<GoogleAdsCallbackPage />} />
+          <Route path="/auth/google/callback" element={<GoogleLoginCallbackPage />} />
 
           {/* Onboarding (auth required, but before full workspace setup) */}
           <Route path="/onboarding" element={<ProtectedRoute><OnboardingPage /></ProtectedRoute>} />

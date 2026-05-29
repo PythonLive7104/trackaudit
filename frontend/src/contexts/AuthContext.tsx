@@ -9,6 +9,7 @@ interface AuthContextValue {
   isLoading: boolean;
   isAuthenticated: boolean;
   login: (email: string, password: string) => Promise<{ hasWorkspace: boolean }>;
+  loginWithGoogle: (code: string, workspaceName?: string) => Promise<{ hasWorkspace: boolean; isNew: boolean }>;
   logout: () => Promise<void>;
   switchWorkspace: (ws: Workspace) => void;
   refreshUser: () => Promise<void>;
@@ -56,6 +57,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return { hasWorkspace: wsList.length > 0 };
   }, []);
 
+  const loginWithGoogle = useCallback(async (code: string, workspaceName?: string) => {
+    const tokens = await api.auth.google(code, workspaceName);
+    tokenStore.set(tokens.access, tokens.refresh);
+    setUser(tokens.user);
+    const wsList = await api.workspaces.list();
+    setWorkspaces(wsList);
+    const active = wsList[0] ?? null;
+    setWorkspace(active);
+    if (active) localStorage.setItem('ta_workspace', active.id);
+    return { hasWorkspace: wsList.length > 0, isNew: tokens.created };
+  }, []);
+
   const logout = useCallback(async () => {
     const refresh = tokenStore.getRefresh();
     if (refresh) {
@@ -81,7 +94,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     <AuthContext.Provider value={{
       user, workspace, workspaces, isLoading,
       isAuthenticated: !!user,
-      login, logout, switchWorkspace, refreshUser,
+      login, loginWithGoogle, logout, switchWorkspace, refreshUser,
     }}>
       {children}
     </AuthContext.Provider>
